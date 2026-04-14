@@ -1,0 +1,119 @@
+---
+const plans = [
+  {
+    name: 'Starter',
+    properties: '1–3 properties',
+    price: 49,
+    description: 'Perfect for getting started with a few listings.',
+    features: [
+      'Channel management (Booking.com, Airbnb)',
+      'Smart calendar & reservations',
+      'Guest messaging inbox',
+      'Revenue analytics dashboard',
+      'White-label subdomain',
+      'Email notifications',
+    ],
+    cta: 'Book a Demo',
+    highlighted: false,
+  },
+  {
+    name: 'Professional',
+    properties: '4–10 properties',
+    price: 39,
+    description: 'For growing operators scaling their portfolio.',
+    features: [
+      'Everything in Starter',
+      'Expedia & VRBO channels',
+      'Advanced rate management',
+      'Weekday/weekend/off-peak rates',
+      'Derived rate plans with markup',
+      'Priority support',
+    ],
+    cta: 'Book a Demo',
+    highlighted: true,
+  },
+  {
+    name: 'Enterprise',
+    properties: '11+ properties',
+    price: 29,
+    description: 'For established operators at scale.',
+    features: [
+      'Everything in Professional',
+      'Custom domain (+$20/mo)',
+      'Full white-label branding',
+      'Dedicated onboarding',
+      'API access',
+      'Custom integrations',
+    ],
+    cta: 'Book a Demo',
+    highlighted: false,
+  },
+];
+---
+
+<section id="pricing" class="py-20 md:py-28 bg-surface-alt">
+  <div class="max-w-6xl mx-auto px-6">
+    <!-- Section header -->
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <p class="text-sm font-semibold text-primary tracking-wide uppercase mb-3">Pricing</p>
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text">
+        Simple per-property pricing
+      </h2>
+      <p class="mt-4 text-text-muted text-lg">
+        No hidden fees. No long-term contracts. Pay per property, per month.
+      </p>
+    </div>
+
+    <!-- Pricing cards -->
+    <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      {plans.map((plan) => (
+        <div class={`relative rounded-2xl p-8 flex flex-col transition-all duration-300 ${
+          plan.highlighted
+            ? 'bg-white border-2 border-primary shadow-xl shadow-primary/10 scale-[1.02]'
+            : 'bg-white border border-border hover:border-primary/30 hover:shadow-lg'
+        }`}>
+          {plan.highlighted && (
+            <div class="absolute -top-3.5 left-1/2 -translate-x-1/2">
+              <span class="px-4 py-1 bg-primary text-white text-xs font-semibold rounded-full">Most Popular</span>
+            </div>
+          )}
+
+          <div class="mb-6">
+            <h3 class="text-xl font-bold text-text">{plan.name}</h3>
+            <p class="text-sm text-text-muted mt-1">{plan.properties}</p>
+          </div>
+
+          <div class="mb-6">
+            <div class="flex items-baseline gap-1">
+              <span class="text-4xl font-bold text-text">${plan.price}</span>
+              <span class="text-text-muted text-sm">/ property / month</span>
+            </div>
+            <p class="text-sm text-text-muted mt-2">{plan.description}</p>
+          </div>
+
+          <ul class="flex-1 space-y-3 mb-8">
+            {plan.features.map((feature) => (
+              <li class="flex items-start gap-3 text-sm text-text">
+                <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                {feature}
+              </li>
+            ))}
+          </ul>
+
+          <a
+            href="#demo"
+            class={`inline-flex items-center justify-center py-3 px-6 rounded-xl font-medium text-sm transition-all ${
+              plan.highlighted
+                ? 'bg-primary text-white hover:bg-primary-dark shadow-lg shadow-primary/25'
+                : 'bg-surface-alt text-text hover:bg-primary/10 hover:text-primary border border-border'
+            }`}
+          >
+            {plan.cta}
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
