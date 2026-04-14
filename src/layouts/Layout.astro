@@ -24,6 +24,12 @@ const ogImage = `${siteURL}/og-image.png`;
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalURL || siteURL} />
+    <meta name="theme-color" content="#0f766e" />
+
+    <!-- Preload fonts for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -31,7 +37,10 @@ const ogImage = `${siteURL}/og-image.png`;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="Hostbase" />
+    <meta property="og:locale" content="en_US" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -41,15 +50,32 @@ const ogImage = `${siteURL}/og-image.png`;
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- Structured Data -->
+    <!-- Structured Data: Organization -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Hostbase",
+      "url": siteURL,
+      "logo": `${siteURL}/favicon.svg`,
+      "description": "AI-native all-in-1 property management system for short-term rental operators.",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "hello@hostbase.ai",
+        "contactType": "sales"
+      }
+    })} />
+
+    <!-- Structured Data: SoftwareApplication -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Hostbase",
       "applicationCategory": "BusinessApplication",
+      "applicationSubCategory": "Property Management System",
       "operatingSystem": "Web",
-      "description": "White-label property management system for short-term rental operators. Channel management, OTA distribution, and guest communications — all under your brand.",
+      "description": "AI-native all-in-1 property management system for short-term rental operators. Channel management, OTA distribution, guest messaging, and revenue analytics — all under your brand.",
       "url": siteURL,
       "offers": {
         "@type": "AggregateOffer",
@@ -62,7 +88,23 @@ const ogImage = `${siteURL}/og-image.png`;
         "@type": "Organization",
         "name": "Hostbase",
         "url": siteURL
-      }
+      },
+      "featureList": [
+        "Channel Management",
+        "Smart Calendar",
+        "Guest Messaging",
+        "Revenue Analytics",
+        "Automated Sync",
+        "White-Label Branding"
+      ]
+    })} />
+
+    <!-- Structured Data: WebSite (enables sitelinks search in Google) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Hostbase",
+      "url": siteURL
     })} />
   </head>
   <body class="min-h-screen">
