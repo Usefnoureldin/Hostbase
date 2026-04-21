@@ -26,7 +26,6 @@ const plans = [
       'Everything in Launch',
       'Channel manager (20+ OTAs)',
       'White-label subdomain',
-      'Dynamic pricing algorithm',
       'Weekday/weekend/off-peak rates',
       'Derived rate plans with markup',
       'Priority support',
@@ -35,12 +34,13 @@ const plans = [
     highlighted: true,
   },
   {
-    name: 'Optimize',
-    price: 250,
+    name: 'Premium',
+    price: 399,
     unit: '/ property / month',
     description: 'For established operators who want full control and custom branding.',
     features: [
       'Everything in Scale',
+      'Dynamic pricing algorithm',
       'Claude Code MCP',
       'Custom Landlord View',
       'Full white-label branding',
@@ -81,7 +81,7 @@ const plans = [
           )}
 
           <div class="mb-6">
-            <h3 class="text-xl font-bold text-text">{plan.name}</h3>
+            <h3 class="text-2xl md:text-3xl font-bold tracking-tight text-text">{plan.name}</h3>
           </div>
 
           <div class="mb-6">
