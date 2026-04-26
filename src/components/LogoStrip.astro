@@ -28,7 +28,8 @@ const allLogos = [...otas, ...otas];
           class={`shrink-0 mx-10 md:mx-14 h-7 md:h-8 ${ota.width} logo-item`}
           title={ota.name}
           aria-label={ota.name}
-          style={`-webkit-mask-image: url(${ota.src}); mask-image: url(${ota.src}); -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; background-color: white; opacity: 0.35; transition: opacity 0.4s ease;`}
+          role="img"
+          style={`background-image: url(${ota.src}); background-size: contain; background-repeat: no-repeat; background-position: center; filter: brightness(0) invert(1); opacity: 0.35; transition: opacity 0.4s ease;`}
           onmouseover="this.style.opacity='0.7'"
           onmouseout="this.style.opacity='0.35'"
         />
