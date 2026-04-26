@@ -46,15 +46,17 @@ const features = [
       </p>
     </div>
 
-    <!-- Feature grid -->
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Features list -->
+    <div class="space-y-6">
       {features.map((feature, i) => (
-        <article class={`group relative rounded-2xl border border-border bg-white p-7 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 animate-fade-in-up delay-${(i + 1) * 100}`}>
-          <div class="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-5 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+        <article class={`group grid md:grid-cols-[auto_1fr] gap-6 items-start p-6 md:p-8 rounded-2xl border border-border bg-white hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 animate-fade-in-up delay-${(i + 1) * 100}`}>
+          <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
             <Fragment set:html={feature.icon} />
           </div>
-          <h3 class="text-lg font-semibold text-text mb-2">{feature.title}</h3>
-          <p class="text-sm text-text-muted leading-relaxed">{feature.description}</p>
+          <div>
+            <h3 class="text-lg font-semibold text-text mb-1">{feature.title}</h3>
+            <p class="text-text-muted leading-relaxed">{feature.description}</p>
+          </div>
         </article>
       ))}
     </div>
