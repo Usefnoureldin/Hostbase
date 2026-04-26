@@ -1,23 +1,17 @@
 ---
 const otas = [
-  {
-    name: 'Booking.com',
-    logo: `<svg width="160" height="28" viewBox="0 0 160 28" fill="none"><text x="0" y="22" font-family="'Inter', system-ui, sans-serif" font-size="22" font-weight="800" fill="currentColor" letter-spacing="-0.5">Booking.com</text></svg>`,
-  },
-  {
-    name: 'Airbnb',
-    logo: `<svg width="100" height="28" viewBox="0 0 100 28" fill="none"><text x="0" y="22" font-family="'Inter', system-ui, sans-serif" font-size="22" font-weight="800" fill="currentColor" letter-spacing="-0.5">Airbnb</text></svg>`,
-  },
-  {
-    name: 'Expedia',
-    logo: `<svg width="110" height="28" viewBox="0 0 110 28" fill="none"><text x="0" y="22" font-family="'Inter', system-ui, sans-serif" font-size="22" font-weight="800" fill="currentColor" letter-spacing="-0.5">Expedia</text></svg>`,
-  },
-  {
-    name: 'VRBO',
-    logo: `<svg width="80" height="28" viewBox="0 0 80 28" fill="none"><text x="0" y="22" font-family="'Inter', system-ui, sans-serif" font-size="22" font-weight="800" fill="currentColor" letter-spacing="-0.5">VRBO</text></svg>`,
-  },
+  { name: 'Booking.com', src: '/logos/booking.svg' },
+  { name: 'Airbnb', src: '/logos/airbnb.svg' },
+  { name: 'Expedia', src: '/logos/expedia.svg' },
+  { name: 'VRBO', src: '/logos/vrbo.svg' },
+  { name: 'Agoda', src: '/logos/agoda.svg' },
+  { name: 'Hotels.com', src: '/logos/hotels-com.svg' },
+  { name: 'TripAdvisor', src: '/logos/tripadvisor.svg' },
+  { name: 'Trip.com', src: '/logos/trip-com.svg' },
+  { name: 'Google Travel', src: '/logos/google-travel.svg' },
+  { name: 'Marriott Homes & Villas', src: '/logos/marriott-homes-villas.svg' },
 ];
-const allLogos = [...otas, ...otas, ...otas];
+const allLogos = [...otas, ...otas];
 ---
 
 <section class="relative py-10 bg-[#0a0e1a] border-t border-white/5 overflow-hidden">
@@ -30,8 +24,13 @@ const allLogos = [...otas, ...otas, ...otas];
   <div class="relative z-10 marquee-mask">
     <div class="marquee-track flex items-center w-max">
       {allLogos.map((ota) => (
-        <div class="flex items-center text-white/40 hover:text-white/70 transition-colors duration-500 shrink-0 mx-14" title={ota.name}>
-          <Fragment set:html={ota.logo} />
+        <div class="shrink-0 mx-10 md:mx-14" title={ota.name}>
+          <img
+            src={ota.src}
+            alt={ota.name}
+            class="ota-logo h-7 md:h-8 w-auto object-contain"
+            loading="lazy"
+          />
         </div>
       ))}
     </div>
@@ -39,19 +38,29 @@ const allLogos = [...otas, ...otas, ...otas];
 </section>
 
 <style>
+  .ota-logo {
+    filter: brightness(0) invert(1);
+    opacity: 0.35;
+    transition: opacity 0.4s ease;
+  }
+
+  .ota-logo:hover {
+    opacity: 0.7;
+  }
+
   .marquee-mask {
     mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
   }
 
   .marquee-track {
-    animation: marquee-scroll 20s linear infinite;
+    animation: marquee-scroll 30s linear infinite;
     will-change: transform;
   }
 
   @keyframes marquee-scroll {
     0% { transform: translateX(0); }
-    100% { transform: translateX(-33.333%); }
+    100% { transform: translateX(-50%); }
   }
 
   @media (prefers-reduced-motion: reduce) {
