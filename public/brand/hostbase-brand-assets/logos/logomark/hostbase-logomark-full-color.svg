@@ -4,14 +4,17 @@
     <!-- Vertical Pillars -->
     <path d="M8 6 L8 26" stroke="#0097A7" stroke-width="3" stroke-linecap="round" />
     <path d="M24 6 L24 26" stroke="#0097A7" stroke-width="3" stroke-linecap="round" />
+    
     <!-- Upward Arc Bridge -->
     <path d="M8 18 Q 16 8 24 18" stroke="#0097A7" stroke-width="3" stroke-linecap="round" fill="none" />
+    
     <!-- Corner Nodes -->
     <circle cx="8" cy="6" r="3" fill="#0097A7" />
     <circle cx="8" cy="26" r="3" fill="#0097A7" />
     <circle cx="24" cy="6" r="3" fill="#0097A7" />
-    <circle cx="24" cy="26" r="3" fill="#F5A623" />
+    <circle cx="24" cy="26" r="3" fill="#0097A7" />
+    
     <!-- Center Node -->
-    <circle cx="16" cy="13" r="3" fill="#0097A7" />
+    <circle cx="16" cy="13" r="3" fill="#F5A623" />
   
 </svg>

@@ -10,8 +10,8 @@
     <circle cx="8" cy="6" r="3" fill="#0097A7" />
     <circle cx="8" cy="26" r="3" fill="#0097A7" />
     <circle cx="24" cy="6" r="3" fill="#0097A7" />
-    <circle cx="24" cy="26" r="3" fill="#F5A623" />
+    <circle cx="24" cy="26" r="3" fill="#0097A7" />
     <!-- Center Node -->
-    <circle cx="16" cy="13" r="3" fill="#0097A7" />
+    <circle cx="16" cy="13" r="3" fill="#F5A623" />
   
 </svg>
