@@ -1,0 +1,62 @@
+---
+const otas = [
+  {
+    name: 'Booking.com',
+    logo: `<svg width="160" height="28" viewBox="0 0 160 28" fill="none"><text x="0" y="22" font-family="'Inter', system-ui, sans-serif" font-size="22" font-weight="800" fill="currentColor" letter-spacing="-0.5">Booking.com</text></svg>`,
+  },
+  {
+    name: 'Airbnb',
+    logo: `<svg width="100" height="28" viewBox="0 0 100 28" fill="none"><text x="0" y="22" font-family="'Inter', system-ui, sans-serif" font-size="22" font-weight="800" fill="currentColor" letter-spacing="-0.5">Airbnb</text></svg>`,
+  },
+  {
+    name: 'Expedia',
+    logo: `<svg width="110" height="28" viewBox="0 0 110 28" fill="none"><text x="0" y="22" font-family="'Inter', system-ui, sans-serif" font-size="22" font-weight="800" fill="currentColor" letter-spacing="-0.5">Expedia</text></svg>`,
+  },
+  {
+    name: 'VRBO',
+    logo: `<svg width="80" height="28" viewBox="0 0 80 28" fill="none"><text x="0" y="22" font-family="'Inter', system-ui, sans-serif" font-size="22" font-weight="800" fill="currentColor" letter-spacing="-0.5">VRBO</text></svg>`,
+  },
+];
+const allLogos = [...otas, ...otas, ...otas];
+---
+
+<section class="relative py-10 bg-[#0a0e1a] border-t border-white/5 overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-b from-[#0a0e1a] to-surface-dark"></div>
+
+  <p class="relative z-10 text-center text-[13px] text-slate-500 uppercase tracking-[0.2em] mb-8 font-medium">
+    Integrated with the platforms you already use
+  </p>
+
+  <div class="relative z-10 marquee-mask">
+    <div class="marquee-track flex items-center w-max">
+      {allLogos.map((ota) => (
+        <div class="flex items-center text-white/40 hover:text-white/70 transition-colors duration-500 shrink-0 mx-14" title={ota.name}>
+          <Fragment set:html={ota.logo} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .marquee-mask {
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+
+  .marquee-track {
+    animation: marquee-scroll 20s linear infinite;
+    will-change: transform;
+  }
+
+  @keyframes marquee-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-33.333%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+  }
+</style>
