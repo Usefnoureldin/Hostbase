@@ -484,6 +484,13 @@ import LogoStrip from './LogoStrip.astro';
   @keyframes hero-fill-occ {
     to { width: 92%; }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .star, .sparkle { animation: none; }
+    .hero-gradient-text { animation: none; }
+    .hero-bar { animation: none; transform: scaleY(1); }
+    .hero-occupancy-bar { animation: none; width: 92%; }
+  }
 </style>
 
 <script>
