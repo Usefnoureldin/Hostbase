@@ -4,7 +4,7 @@ const plans = [
     name: 'Individual Growth',
     price: 99,
     unit: '/ month',
-    description: 'Everything you need to get your first property live and taking bookings.',
+    description: 'Built for independent operators. Go from zero to live on Booking.com in minutes.',
     features: [
       'Unlimited listings',
       'Supports Booking.com only',
@@ -21,7 +21,7 @@ const plans = [
     name: 'Pro',
     price: 399,
     unit: '/ property / month',
-    description: 'For growing operators scaling their portfolio across channels.',
+    description: 'For operators with up to 5 properties. Manage and grow your portfolio across every channel. Rates sync automatically, AI optimizes the rest. You handle the guests.',
     introLine: 'Everything in Individual Growth, plus...',
     features: [
       'Channel manager (20+ OTAs)',
@@ -35,9 +35,9 @@ const plans = [
   },
   {
     name: 'Enterprise',
-    price: 499,
-    unit: '/ property / month',
-    description: 'For established operators who want full control and custom branding.',
+    price: null,
+    unit: '',
+    description: 'For operators managing 5+ properties. Dynamic pricing, AI-powered operations, landlord reporting, and full white-label branding on your own domain. Everything tailored to your portfolio.',
     introLine: 'Everything in Pro, plus...',
     features: [
       'Dynamic pricing algorithm',
@@ -59,10 +59,10 @@ const plans = [
     <div class="text-center max-w-2xl mx-auto mb-16">
       <p class="text-sm font-semibold text-primary tracking-wide uppercase mb-3">Pricing</p>
       <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text font-display">
-        Simple per-property pricing
+        Pricing that rewards scale.
       </h2>
       <p class="mt-4 text-text-muted text-lg">
-        No hidden fees. No long-term contracts. Pay per property, per month.
+        One flat rate per property. Unlimited listings, unlimited rooms. No hidden fees. Cancel anytime.
       </p>
     </div>
 
@@ -86,8 +86,14 @@ const plans = [
 
           <div class="mb-6">
             <div class="flex items-baseline gap-1">
-              <span class="text-4xl font-bold text-text">${plan.price}</span>
-              <span class="text-text-muted text-sm">{plan.unit}</span>
+              {plan.price !== null ? (
+                <>
+                  <span class="text-4xl font-bold text-text">${plan.price}</span>
+                  <span class="text-text-muted text-sm">{plan.unit}</span>
+                </>
+              ) : (
+                <span class="text-4xl font-bold text-text">Custom</span>
+              )}
             </div>
             <p class="text-sm text-text-muted mt-2">{plan.description}</p>
           </div>
