@@ -1,11 +1,28 @@
 ---
 const plans = [
   {
-    name: 'Growth',
-    price: 299,
+    name: 'Individual Growth',
+    price: 99,
+    unit: '/ month',
+    description: 'Everything you need to get your first property live and taking bookings.',
+    features: [
+      'Unlimited listings',
+      'Supports Booking.com only',
+      'Intelligent room auto-shuffle system',
+      'Smart calendar & reservations',
+      'Guest messaging inbox',
+      'Revenue analytics dashboard',
+      'Email notifications',
+    ],
+    cta: 'Try for Free',
+    highlighted: false,
+  },
+  {
+    name: 'Pro',
+    price: 399,
     unit: '/ property / month',
     description: 'For growing operators scaling their portfolio across channels.',
-    introLine: 'Everything in Launch, plus...',
+    introLine: 'Everything in Individual Growth, plus...',
     features: [
       'Channel manager (20+ OTAs)',
       'White-label subdomain',
@@ -17,11 +34,11 @@ const plans = [
     highlighted: true,
   },
   {
-    name: 'Pro',
+    name: 'Enterprise',
     price: 499,
     unit: '/ property / month',
     description: 'For established operators who want full control and custom branding.',
-    introLine: 'Everything in Growth, plus...',
+    introLine: 'Everything in Pro, plus...',
     features: [
       'Dynamic pricing algorithm',
       'Claude + ChatGPT MCP',
@@ -50,7 +67,7 @@ const plans = [
     </div>
 
     <!-- Pricing cards -->
-    <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+    <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
       {plans.map((plan) => (
         <div class={`relative rounded-2xl p-8 flex flex-col transition-all duration-300 ${
           plan.highlighted
