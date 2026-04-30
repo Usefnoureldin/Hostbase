@@ -20,7 +20,13 @@ const plans = [
   {
     name: 'Pro',
     price: 399,
-    unit: '/ property / month',
+    unit: '/ month',
+    slider: {
+      min: 1,
+      max: 5,
+      default: 1,
+      pricePerProperty: { 1: 399, 2: 349, 3: 329, 4: 299, 5: 249 },
+    },
     description: 'For operators with up to 5 properties. Manage and grow your portfolio across every channel. Rates sync automatically, AI optimizes the rest. You handle the guests.',
     introLine: 'Everything in Individual Growth, plus...',
     features: [
@@ -88,14 +94,47 @@ const plans = [
             <div class="flex items-baseline gap-1">
               {plan.price !== null ? (
                 <>
-                  <span class="text-4xl font-bold text-text">${plan.price}</span>
+                  <span
+                    class="text-4xl font-bold text-text"
+                    data-price-display={plan.slider ? 'pro' : undefined}
+                    data-price-tiers={plan.slider ? JSON.stringify(plan.slider.pricePerProperty) : undefined}
+                  >${plan.slider ? (plan.slider.default * plan.slider.pricePerProperty[plan.slider.default]).toLocaleString() : plan.price}</span>
                   <span class="text-text-muted text-sm">{plan.unit}</span>
                 </>
               ) : (
                 <span class="text-4xl font-bold text-text">Custom</span>
               )}
             </div>
-            <p class="text-sm text-text-muted mt-2">{plan.description}</p>
+            {plan.slider && (
+              <>
+                <p class="text-sm text-text-muted mt-1">
+                  <span data-per-property>${plan.slider.pricePerProperty[plan.slider.default]}</span> / property
+                </p>
+                <div class="mt-4">
+                  <div class="flex items-center justify-between mb-2">
+                    <label for="pro-properties" class="text-sm text-text-muted">Properties</label>
+                    <span class="text-sm font-semibold text-text">
+                      <span data-properties-count>{plan.slider.default}</span>
+                      <span data-properties-label>{plan.slider.default === 1 ? 'property' : 'properties'}</span>
+                    </span>
+                  </div>
+                  <input
+                    id="pro-properties"
+                    type="range"
+                    min={plan.slider.min}
+                    max={plan.slider.max}
+                    value={plan.slider.default}
+                    class="w-full accent-primary cursor-pointer"
+                    aria-label="Number of properties"
+                  />
+                  <div class="flex justify-between mt-1 text-xs text-text-muted">
+                    <span>{plan.slider.min}</span>
+                    <span>{plan.slider.max}</span>
+                  </div>
+                </div>
+              </>
+            )}
+            <p class="text-sm text-text-muted mt-3">{plan.description}</p>
           </div>
 
           <div class="flex-1 mb-8">
@@ -129,3 +168,25 @@ const plans = [
     </div>
   </div>
 </section>
+
+<script>
+  const slider = document.getElementById('pro-properties') as HTMLInputElement | null;
+  const priceEl = document.querySelector<HTMLElement>('[data-price-display="pro"]');
+  const perPropEl = document.querySelector<HTMLElement>('[data-per-property]');
+  const countEl = document.querySelector<HTMLElement>('[data-properties-count]');
+  const labelEl = document.querySelector<HTMLElement>('[data-properties-label]');
+
+  if (slider && priceEl && perPropEl && countEl && labelEl) {
+    const tiers: Record<string, number> = JSON.parse(priceEl.dataset.priceTiers || '{}');
+    const update = () => {
+      const n = Number(slider.value);
+      const perProp = tiers[String(n)] ?? 0;
+      priceEl.textContent = '$' + (n * perProp).toLocaleString();
+      perPropEl.textContent = '$' + perProp;
+      countEl.textContent = String(n);
+      labelEl.textContent = n === 1 ? 'property' : 'properties';
+    };
+    slider.addEventListener('input', update);
+    update();
+  }
+</script>
