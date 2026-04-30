@@ -4,6 +4,12 @@ const plans = [
     name: 'Individual Growth',
     price: 99,
     unit: '/ month',
+    slider: {
+      min: 1,
+      max: 2,
+      default: 1,
+      pricePerProperty: { 1: 99, 2: 74.5 },
+    },
     description: 'Built for independent operators. Go from zero to live on Booking.com in minutes.',
     features: [
       'Unlimited listings',
@@ -74,8 +80,11 @@ const plans = [
 
     <!-- Pricing cards -->
     <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-      {plans.map((plan) => (
-        <div class={`relative rounded-2xl p-8 flex flex-col transition-all duration-300 ${
+      {plans.map((plan) => {
+        const planSlug = plan.name.toLowerCase().replace(/\s+/g, '-');
+        const fmt = (n: number) => Number.isInteger(n) ? n.toLocaleString() : n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return (
+        <div data-pricing-card class={`relative rounded-2xl p-8 flex flex-col transition-all duration-300 ${
           plan.highlighted
             ? 'bg-white border-2 border-primary shadow-xl shadow-primary/10 scale-[1.02]'
             : 'bg-white border border-border hover:border-primary/30 hover:shadow-lg'
@@ -96,9 +105,9 @@ const plans = [
                 <>
                   <span
                     class="text-4xl font-bold text-text"
-                    data-price-display={plan.slider ? 'pro' : undefined}
+                    data-price-display={plan.slider ? '' : undefined}
                     data-price-tiers={plan.slider ? JSON.stringify(plan.slider.pricePerProperty) : undefined}
-                  >${plan.slider ? (plan.slider.default * plan.slider.pricePerProperty[plan.slider.default]).toLocaleString() : plan.price}</span>
+                  >${plan.slider ? fmt(plan.slider.default * plan.slider.pricePerProperty[plan.slider.default]) : plan.price}</span>
                   <span class="text-text-muted text-sm">{plan.unit}</span>
                 </>
               ) : (
@@ -108,18 +117,18 @@ const plans = [
             {plan.slider && (
               <>
                 <p class="text-sm text-text-muted mt-1">
-                  <span data-per-property>${plan.slider.pricePerProperty[plan.slider.default]}</span> / property
+                  <span data-per-property>${fmt(plan.slider.pricePerProperty[plan.slider.default])}</span> / property
                 </p>
                 <div class="mt-4">
                   <div class="flex items-center justify-between mb-2">
-                    <label for="pro-properties" class="text-sm text-text-muted">Properties</label>
+                    <label for={`${planSlug}-properties`} class="text-sm text-text-muted">Properties</label>
                     <span class="text-sm font-semibold text-text">
                       <span data-properties-count>{plan.slider.default}</span>
                       <span data-properties-label>{plan.slider.default === 1 ? 'property' : 'properties'}</span>
                     </span>
                   </div>
                   <input
-                    id="pro-properties"
+                    id={`${planSlug}-properties`}
                     type="range"
                     min={plan.slider.min}
                     max={plan.slider.max}
@@ -164,29 +173,73 @@ const plans = [
             {plan.cta}
           </a>
         </div>
-      ))}
+        );
+      })}
     </div>
   </div>
 </section>
 
-<script>
-  const slider = document.getElementById('pro-properties') as HTMLInputElement | null;
-  const priceEl = document.querySelector<HTMLElement>('[data-price-display="pro"]');
-  const perPropEl = document.querySelector<HTMLElement>('[data-per-property]');
-  const countEl = document.querySelector<HTMLElement>('[data-properties-count]');
-  const labelEl = document.querySelector<HTMLElement>('[data-properties-label]');
+<style>
+  [data-pricing-card] input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    height: 18px;
+  }
+  [data-pricing-card] input[type="range"]::-webkit-slider-runnable-track {
+    height: 4px;
+    background: var(--color-border);
+    border-radius: 9999px;
+  }
+  [data-pricing-card] input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    background: var(--color-primary);
+    border: none;
+    margin-top: -7px;
+    cursor: pointer;
+  }
+  [data-pricing-card] input[type="range"]::-moz-range-track {
+    height: 4px;
+    background: var(--color-border);
+    border-radius: 9999px;
+  }
+  [data-pricing-card] input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    background: var(--color-primary);
+    border: none;
+    cursor: pointer;
+  }
+</style>
 
-  if (slider && priceEl && perPropEl && countEl && labelEl) {
+<script>
+  const fmt = (n: number) => Number.isInteger(n)
+    ? n.toLocaleString()
+    : n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  document.querySelectorAll<HTMLElement>('[data-pricing-card]').forEach((card) => {
+    const slider = card.querySelector<HTMLInputElement>('input[type="range"]');
+    const priceEl = card.querySelector<HTMLElement>('[data-price-display]');
+    const perPropEl = card.querySelector<HTMLElement>('[data-per-property]');
+    const countEl = card.querySelector<HTMLElement>('[data-properties-count]');
+    const labelEl = card.querySelector<HTMLElement>('[data-properties-label]');
+    if (!slider || !priceEl || !perPropEl || !countEl || !labelEl) return;
+
     const tiers: Record<string, number> = JSON.parse(priceEl.dataset.priceTiers || '{}');
     const update = () => {
       const n = Number(slider.value);
       const perProp = tiers[String(n)] ?? 0;
-      priceEl.textContent = '$' + (n * perProp).toLocaleString();
-      perPropEl.textContent = '$' + perProp;
+      priceEl.textContent = '$' + fmt(n * perProp);
+      perPropEl.textContent = '$' + fmt(perProp);
       countEl.textContent = String(n);
       labelEl.textContent = n === 1 ? 'property' : 'properties';
     };
     slider.addEventListener('input', update);
     update();
-  }
+  });
 </script>
